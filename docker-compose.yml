@@ -1,0 +1,29 @@
+version: '2.2'
+
+services:
+
+  nginx:
+    build: jenkins-nginx
+    image: rse/jenkinsnginx
+    container_name: jenkins-nginx
+    ports:
+    - "80:80"
+    links:
+    - master:jenkins-master
+    depends_on:
+    - master
+          
+  master:
+    build: jenkins-master
+    image: rse/jenkinsmaster
+    container_name: jenkins-master
+    volumes_from:
+    - data
+    depends_on:
+    - data
+
+  data:
+    build: jenkins-data
+    image: rse/jenkinsdata
+    container_name: jenkins-data
+    tty: true

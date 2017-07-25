@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Jenkins
+metadata:
+  name: Jenkins
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: Jenkins
+
+    spec:
+      containers:
+
+      - name: jenkins-nginx
+        image: rse/jenkinsnginx
+        ports:
+        - containerPort: 80
+
+      - name: jenkins-master
+        image: rse/jenkinsmaster
+
+      - name: jenkins-data
+        image: rse/jenkinsdata
